@@ -1,0 +1,6 @@
+# Initialize kernel
+/run/verbose 2
+/control/verbose 2
+/run/initialize
+
+/run/beamOn 1000
