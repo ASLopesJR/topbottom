@@ -110,6 +110,7 @@ bool AngraMCLog::SaveHits(AngraPMTHitsCollection* PHC)
     *outFile << " HITS " << " " << pmts  << G4endl;
     for(int i=0;i<pmts;i++){
       *outFile << " HIT "
+           << (*PHC)[i]->GetEn() << " " 
 	       << (*PHC)[i]->GetPMTPhysVol()->GetName() << std:: endl;
     }
   }

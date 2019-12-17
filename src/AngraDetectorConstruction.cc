@@ -201,6 +201,7 @@ void AngraDetectorConstruction::ConstructMaterials()
   const G4int N_WATER = AngraConstantMgr::Instance().GetValue("N_Water_Bins");
   G4MaterialPropertyVector *WaterRefractive = new G4MaterialPropertyVector();
   G4MaterialPropertyVector *WaterAbsLength = new G4MaterialPropertyVector();
+  G4MaterialPropertyVector *GDWaterAbsLength = new G4MaterialPropertyVector();
 
   for(int i = 0; i<N_WATER; i++){
     ostringstream num,lamb;
@@ -215,12 +216,17 @@ void AngraDetectorConstruction::ConstructMaterials()
 
     binName = "AbsLength_";
     binName += num.str();        
-    WaterAbsLength->InsertValues(binEn,AngraConstantMgr::Instance().GetValue(binName)*0.32*m);
+    WaterAbsLength->InsertValues(binEn,AngraConstantMgr::Instance().GetValue(binName)*m);
+    GDWaterAbsLength->InsertValues(binEn,AngraConstantMgr::Instance().GetValue(binName)*0.30*m);
   }
 
   G4MaterialPropertiesTable* OpWaterProperties = new G4MaterialPropertiesTable();
   OpWaterProperties->AddProperty("RINDEX",   WaterRefractive);
   OpWaterProperties->AddProperty("ABSLENGTH",WaterAbsLength);
+
+  G4MaterialPropertiesTable* OpGDWaterProperties = new G4MaterialPropertiesTable();
+  OpGDWaterProperties->AddProperty("RINDEX",   WaterRefractive);
+  OpGDWaterProperties->AddProperty("ABSLENGTH",GDWaterAbsLength);
 
   GDW->SetMaterialPropertiesTable(OpWaterProperties);
   H2O->SetMaterialPropertiesTable(OpWaterProperties);
